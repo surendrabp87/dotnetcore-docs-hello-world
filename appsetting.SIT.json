@@ -1,0 +1,12 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "System": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "environment_stage": "SIT",
+  "Message": "We are using SIT💜"
+}
