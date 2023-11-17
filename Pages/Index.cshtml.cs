@@ -1,22 +1,35 @@
-﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 using System.Runtime.InteropServices;
 
-namespace dotnetcoresample.Pages;
-
-public class IndexModel : PageModel
+namespace dotnetcoresample.Pages
 {
-
-    public string OSVersion { get { return RuntimeInformation.OSDescription; }  }
-    
-    private readonly ILogger<IndexModel> _logger;
-
-    public IndexModel(ILogger<IndexModel> logger)
+    public class IndexModel : PageModel
     {
-        _logger = logger;
-    }
-
-    public void OnGet()
-    {        
+        private readonly IConfiguration _configuration;
+    
+        public string OSVersion { get { return RuntimeInformation.OSDescription; } }
+        public string Message { get; private set; }
+    
+        public IndexModel(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+    
+        public void OnGet()
+        {
+            var environmentStage = _configuration["environment_stage"];
+    
+            if (!string.IsNullOrEmpty(environmentStage))
+            {
+                Message = _configuration["Message"];
+            }
+            else
+            {
+                Message = "Hello, World!";
+            }
+        }
     }
 }
+
+
